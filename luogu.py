@@ -85,7 +85,7 @@ def init_web_driver():
 
 
 def regular_file(*segments, join='.', suffix='.md'):
-    segments = map(lambda s: s.replace('/', '-'), segments);
+    segments = map(lambda s: s.replace('/', '-'), segments)
     return join.join(segments) + '.md'
 
 
@@ -339,8 +339,8 @@ def generate_template(index, force_update=False):
 
 
 def compile_and_test(index):
-    collection = get_collection()
-    problem = collection.find_one({'index': index})
+    ##collection = get_collection()
+    # problem = collection.find_one({'index': index})
 
     code_file = index.lower() + '.cpp'
     output_bin = 'test.out'
@@ -361,7 +361,7 @@ def compile_and_test(index):
         test_case = load(f)
 
     for i, case in enumerate(reversed(test_case), 1):
-        start_time = time.time();
+        start_time = time.time()
         result = subprocess.run('./%s' % output_bin,
                                 input=bytearray(case['i'], 'ascii'),
                                 stdout=subprocess.PIPE,
@@ -370,7 +370,7 @@ def compile_and_test(index):
         error = result.stderr.decode('ascii')
         # sometimes there will have a '\n' at end;
         with open('test.output', 'w') as f:
-            f.write(output);
+            f.write(output)
         if output != case['o'] and output != case['o'] + '\n':  
             print('=' * 10 + ' Test Case #%s ' % i + '=' * 10)
             print('#input')
